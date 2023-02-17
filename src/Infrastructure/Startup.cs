@@ -4,6 +4,8 @@ using Infrastructure.Auth.Jwt;
 using Infrastructure.Identity;
 using Infrastructure.Identity.Data;
 using Infrastructure.Identity.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,10 +32,7 @@ public static class Startup
 
         // Must add identity before adding auth!
         services.ConfigureJwtSettings(config);
-        if (useJwtAuth)
-        {
-            services.AddJwtAuth(config); // inject this for use jwt auth
-        }
+        services.AddJwtAuth(config); // inject this for use jwt auth
 
         services.AddClaimStores<CustomAuthDataProvider>();
         services.AddIdentityServices();
@@ -43,5 +42,19 @@ public static class Startup
 #pragma warning restore CA1416
 
         return services;
+    }
+
+    public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder builder, IConfiguration config)
+    {
+        if (config.GetValue<bool>("AllowAnonymous"))
+        {
+            builder.MapControllers().AllowAnonymous();
+        }
+        else
+        {
+            builder.MapControllers().RequireAuthorization();
+        }
+
+        return builder;
     }
 }

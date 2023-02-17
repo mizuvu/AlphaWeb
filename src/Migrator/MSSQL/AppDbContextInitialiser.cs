@@ -28,7 +28,7 @@ public class AppDbContextInitialiser
     public async Task InitialiseAsync()
     {
         _logger.LogInformation("Seeding...");
-        
+
         try
         {
             if (_context.Database.IsSqlServer() && _context.Database.GetMigrations().Any())
