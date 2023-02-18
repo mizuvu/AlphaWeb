@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HO.Infrastructure.CORS;
 
-public static class Startup
+public static class CorsConfigure
 {
-    private const string corsPolicy = nameof(corsPolicy);
+    private const string _corsPolicy = "ZordCorsPolices";
 
     public static IServiceCollection AddCorsPolicies(this IServiceCollection services, IConfiguration config)
     {
@@ -20,7 +20,7 @@ public static class Startup
             {
                 services.AddCors(options =>
                 {
-                    options.AddPolicy(corsPolicy, builder =>
+                    options.AddPolicy(_corsPolicy, builder =>
                         builder.AllowAnyOrigin()
                              .AllowAnyMethod()
                              .AllowAnyHeader());
@@ -47,7 +47,7 @@ public static class Startup
                 if (origins.Any())
                 {
                     services.AddCors(opt =>
-                        opt.AddPolicy(corsPolicy, policy =>
+                        opt.AddPolicy(_corsPolicy, policy =>
                             policy.AllowAnyHeader()
                                 .AllowAnyMethod()
                                 .AllowCredentials()
@@ -67,7 +67,7 @@ public static class Startup
 
         if (enable)
         {
-            app.UseCors(corsPolicy);
+            app.UseCors(_corsPolicy);
         }
 
         return app;
