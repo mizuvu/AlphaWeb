@@ -23,30 +23,6 @@ public static class Startup
         return services;
     }
 
-    private static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration config, bool useJwtAuth = false)
-    {
-        services.AddIdentityData<AppIdentityDbContext>(config);
-
-        services.AddHttpContextAccessor();
-
-        services.AddScoped<ICurrentUser, CurrentUser>();
-        services.AddPermissions();
-        services.AddIdentitySetup<AppIdentityDbContext>();
-
-        // Must add identity before adding auth!
-        services.ConfigureJwtSettings(config);
-        services.AddJwtAuth(config); // inject this for use jwt auth
-
-        services.AddClaimStores<CustomAuthDataProvider>();
-        services.AddIdentityServices();
-
-#pragma warning disable CA1416
-        services.AddActiveDirectoryServices(config);
-#pragma warning restore CA1416
-
-        return services;
-    }
-
     public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder builder, IConfiguration config)
     {
         if (config.GetValue<bool>("AllowAnonymous"))
@@ -59,5 +35,30 @@ public static class Startup
         }
 
         return builder;
+    }
+
+    private static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration config, bool useJwtAuth = false)
+    {
+        services.AddIdentityData<AppIdentityDbContext>(config);
+
+        services.AddHttpContextAccessor();
+
+        services.AddScoped<ICurrentUser, CurrentUser>();
+        services.AddPermissions();
+        services.AddIdentitySetup<AppIdentityDbContext>();
+
+        // Must add identity before adding auth!
+        services.ConfigureJwtSettings(config);
+        // Inject outside because WebMVC don't use it
+        //services.AddJwtAuth(config); // inject this for use jwt auth
+
+        services.AddClaimStores<CustomAuthDataProvider>();
+        services.AddIdentityServices();
+
+#pragma warning disable CA1416
+        services.AddActiveDirectoryServices(config);
+#pragma warning restore CA1416
+
+        return services;
     }
 }

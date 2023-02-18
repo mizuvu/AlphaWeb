@@ -1,5 +1,6 @@
 ﻿using Application;
 using Infrastructure;
+using Infrastructure.Auth.Jwt;
 using Infrastructure.CORS;
 using Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ public static class ServicesExtension
     public static void ConfigureServices(this IServiceCollection services, IConfiguration config)
     {
         services.AddInfrastructure(config);
+        services.AddJwtAuth(config); // only WebApi use this
         services.AddApplication();
 
         services.AddSwagger(config);

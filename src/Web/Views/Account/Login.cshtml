@@ -1,0 +1,26 @@
+﻿@model LoginRequest
+
+@{
+    Layout = "_BlankLayout";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh">
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="UserName" class="form-control" id="floatingInput">
+                    <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Password" class="form-control" id="floatingPassword">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
