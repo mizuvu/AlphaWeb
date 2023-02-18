@@ -1,6 +1,7 @@
 using Application.Common.Interfaces;
 using Infrastructure.Auth;
 using Infrastructure.Auth.Jwt;
+using Infrastructure.Data;
 using Infrastructure.Identity;
 using Infrastructure.Identity.Data;
 using Infrastructure.Identity.Services;
@@ -16,6 +17,8 @@ public static class Startup
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
     {
         services.AddAuth(config);
+
+        services.AddData(config);
 
         return services;
     }

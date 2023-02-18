@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HO.Infrastructure.CORS;
+namespace Infrastructure.CORS;
 
 public static class CorsConfigure
 {

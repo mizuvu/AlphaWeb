@@ -1,13 +1,17 @@
 /*
+using Application.Features.Notifications.Queries;
+using Microsoft.AspNetCore.Mvc;
+
 namespace WebApi.Controllers;
 
 [AllowAnonymous]
 public class TestController : ApiControllerBase
 {
-    [HttpGet]
-    public async Task<IActionResult> PostAsync()
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetAsync(string id)
     {
-        return Ok();
+        var data = await Mediator.Send(new GetNotificationById(id));
+        return Ok(data);
     }
 }
 */

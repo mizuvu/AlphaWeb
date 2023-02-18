@@ -1,5 +1,6 @@
-﻿using HO.Infrastructure.CORS;
+﻿using Application;
 using Infrastructure;
+using Infrastructure.CORS;
 using Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
@@ -13,6 +14,7 @@ public static class ServicesExtension
     public static void ConfigureServices(this IServiceCollection services, IConfiguration config)
     {
         services.AddInfrastructure(config);
+        services.AddApplication();
 
         services.AddSwagger(config);
         services.AddApiVersioning(1);
