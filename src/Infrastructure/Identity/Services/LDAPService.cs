@@ -1,8 +1,8 @@
-﻿using Application.Identity;
+﻿using Application.Contracts.Identity;
+using Application.Identity;
 using Infrastructure.Identity.Models;
 using Microsoft.Extensions.Options;
 using Novell.Directory.Ldap;
-using Shared.Identity;
 using System.DirectoryServices;
 using System.Runtime.Versioning;
 

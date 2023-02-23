@@ -20,6 +20,7 @@ public static class ServicesExtension
 
         services.AddSwagger(configuration);
         services.AddApiVersioning(1);
+        services.AddRouting(options => options.LowercaseUrls = true); // lowercase Url
     }
 
     public static IApplicationBuilder ConfigurePipelines(this IApplicationBuilder builder, IConfiguration configuration) =>
@@ -40,6 +41,9 @@ public static class ServicesExtension
         config.ReportApiVersions = true;
     });
 
+    /// <summary>
+    /// Auto add manual settings*.json files in folder Configurations
+    /// </summary>
     public static WebApplicationBuilder AddConfigurations(this WebApplicationBuilder host)
     {
         var env = host.Environment.EnvironmentName;

@@ -1,4 +1,4 @@
-﻿using Shared.Identity;
+﻿using Application.Contracts.Identity;
 
 namespace Application.Identity;
 

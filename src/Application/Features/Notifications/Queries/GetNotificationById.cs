@@ -1,4 +1,4 @@
-﻿using Shared.Dtos.Notifications;
+﻿using Application.Contracts.Dtos.Notifications;
 
 namespace Application.Features.Notifications.Queries;
 

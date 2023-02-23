@@ -1,7 +1,7 @@
-﻿using Application.Identity;
+﻿using Application.Contracts.Identity;
+using Application.Identity;
 using Infrastructure.Identity.Models;
 using Microsoft.Extensions.Options;
-using Shared.Identity;
 using System.DirectoryServices.AccountManagement;
 using System.Runtime.Versioning;
 

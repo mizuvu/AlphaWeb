@@ -9,6 +9,6 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult GetAsync()
     {
-        return LocalRedirect("/swagger");
+        return Redirect("/swagger");
     }
 }

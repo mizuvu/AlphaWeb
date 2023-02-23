@@ -1,6 +1,6 @@
+using Application.Contracts.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
-using Shared.Authorization;
 
 namespace Infrastructure.Auth.Permissions;
 

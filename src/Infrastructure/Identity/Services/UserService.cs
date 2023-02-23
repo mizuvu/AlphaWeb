@@ -1,10 +1,10 @@
 ﻿using Application.Common.Extensions;
+using Application.Contracts.Identity;
 using Application.Identity;
 using Infrastructure.Identity.Abstractions;
 using Infrastructure.Identity.Extensions;
 using Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
-using Shared.Identity;
 
 namespace Infrastructure.Identity.Services;
 

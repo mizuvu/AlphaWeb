@@ -1,6 +1,6 @@
 ﻿using Application.Common.Interfaces;
+using Application.Contracts.Authorization;
 using Microsoft.AspNetCore.Http;
-using Shared.Authorization;
 using System.Security.Claims;
 
 namespace Infrastructure.Auth;

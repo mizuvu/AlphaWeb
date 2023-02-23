@@ -1,9 +1,9 @@
-﻿using Application.Identity;
+﻿using Application.Contracts.Identity;
+using Application.Identity;
 using Infrastructure.Identity.Abstractions;
 using Infrastructure.Identity.Extensions;
 using Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
-using Shared.Identity;
 using System.Security.Claims;
 
 namespace Infrastructure.Identity.Services;

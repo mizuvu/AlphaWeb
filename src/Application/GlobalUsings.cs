@@ -1,5 +1,5 @@
-﻿global using Application.Common.Interfaces;
-global using Application.Common.Extensions;
+﻿global using Application.Common.Extensions;
+global using Application.Common.Interfaces;
 global using Domain.Entites;
 global using Domain.Exceptions;
 global using FluentValidation;

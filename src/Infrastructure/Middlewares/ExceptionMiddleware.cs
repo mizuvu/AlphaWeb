@@ -1,8 +1,8 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Shared.Models;
 using Microsoft.AspNetCore.Http;
 using Serilog;
 using Serilog.Context;
-using Shared.Contracts.Models;
 using System.Net;
 using System.Text.Json;
 

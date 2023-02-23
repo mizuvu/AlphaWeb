@@ -1,10 +1,10 @@
-﻿using Application.Identity;
+﻿using Application.Contracts.Identity;
+using Application.Identity;
 using Infrastructure.Auth.Jwt;
 using Infrastructure.Identity.Abstractions;
 using Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using Shared.Identity;
 using System.Security.Claims;
 
 namespace Infrastructure.Identity.Services;

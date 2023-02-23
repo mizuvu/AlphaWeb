@@ -1,5 +1,5 @@
-﻿using Infrastructure.Identity.Abstractions;
-using Shared.Authorization;
+﻿using Application.Contracts.Authorization;
+using Infrastructure.Identity.Abstractions;
 using System.Security.Claims;
 
 namespace Infrastructure.Identity.Services

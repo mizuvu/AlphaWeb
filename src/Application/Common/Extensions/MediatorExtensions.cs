@@ -1,6 +1,5 @@
 ﻿using Domain.Common.Interfaces;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Common.Extensions;
 

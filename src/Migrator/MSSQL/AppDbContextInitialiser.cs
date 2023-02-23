@@ -1,8 +1,8 @@
-﻿using Infrastructure.Identity.Models;
+﻿using Application.Contracts.Authorization;
+using Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Shared.Authorization;
 
 namespace Migrator.MSSQL;
 
