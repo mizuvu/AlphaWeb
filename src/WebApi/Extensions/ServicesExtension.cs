@@ -1,7 +1,7 @@
 ﻿using Application;
 using Infrastructure;
 using Infrastructure.Auth.Jwt;
-using Infrastructure.CORS;
+using Infrastructure.Cors;
 using Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
@@ -12,26 +12,25 @@ namespace WebApi.Extensions;
 
 public static class ServicesExtension
 {
-    public static void ConfigureServices(this IServiceCollection services, IConfiguration config)
+    public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddInfrastructure(config);
-        services.AddJwtAuth(config); // only WebApi use this
+        services.AddInfrastructure(configuration);
+        services.AddJwtAuth(configuration); // only WebApi use this
         services.AddApplication();
 
-        services.AddSwagger(config);
+        services.AddSwagger(configuration);
         services.AddApiVersioning(1);
     }
 
-    public static IApplicationBuilder ConfigurePipelines(this IApplicationBuilder builder, IConfiguration config) =>
+    public static IApplicationBuilder ConfigurePipelines(this IApplicationBuilder builder, IConfiguration configuration) =>
     builder
-        .UseExceptionMiddleware(config)
+        .UseMiddlewares(configuration)
         .UseRouting()
-        .UseCorsPolicies(config)
+        .UseCorsPolicies(configuration)
         .UseAuthentication()
         .UseAuthorization()
-        .UseSwagger(config)
-        .UseSerilogRequestLogging()
-        .UseSaveRequestLogMiddleware(config);
+        .UseSwagger(configuration)
+        .UseSerilogRequestLogging();
 
     private static IServiceCollection AddApiVersioning(this IServiceCollection services, int version) =>
     services.AddApiVersioning(config =>

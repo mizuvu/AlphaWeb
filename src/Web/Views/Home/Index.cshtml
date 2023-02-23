@@ -6,3 +6,14 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<button type="button" class="btn btn-primary" onclick="reload()">Reload</button>
+<button type="button" class="btn btn-primary" onclick="redirect('@Url.Action("Privacy")')">Redirect</button>
+<button type="button" class="btn btn-primary" onclick="redirect('@Url.Action("Privacy")', 'Go to page?')">Confirm</button>
+
+@section Scripts {
+    <script type="text/javascript">
+        $().ready(function () {
+        });
+    </script>
+}

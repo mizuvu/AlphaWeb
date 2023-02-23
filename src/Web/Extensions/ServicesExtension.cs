@@ -1,6 +1,6 @@
 ﻿using Application;
 using Infrastructure;
-using Infrastructure.CORS;
+using Infrastructure.Cors;
 using Infrastructure.Identity.Models;
 using Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Identity;
@@ -33,11 +33,9 @@ public static class ServicesExtension
 
     public static IApplicationBuilder ConfigurePipelines(this IApplicationBuilder builder, IConfiguration config) =>
     builder
-        .UseExceptionMiddleware(config)
+        .UseMiddlewares(config)
         .UseRouting()
         .UseCorsPolicies(config)
         .UseAuthentication()
         .UseAuthorization()
-        .UseSerilogRequestLogging()
-        .UseSaveRequestLogMiddleware(config);
-}
+        .UseSerilogRequestLogging();

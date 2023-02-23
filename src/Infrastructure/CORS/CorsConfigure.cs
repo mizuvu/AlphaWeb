@@ -2,52 +2,53 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.CORS;
+namespace Infrastructure.Cors;
 
 public static class CorsConfigure
 {
-    private const string _corsPolicy = "ZordCorsPolices";
+    private const string _corsPolicyName = "CorsPolices";
 
-    public static IServiceCollection AddCorsPolicies(this IServiceCollection services, IConfiguration config)
+    private static bool EnableCors(this IConfiguration configuration) =>
+        configuration.GetValue<bool>("CORS:Enable");
+
+    public static IServiceCollection AddCorsPolicies(this IServiceCollection services, IConfiguration configuration)
     {
-        bool enable = config.GetValue<bool>("CORS:Enable");
-
-        if (enable)
+        if (configuration.EnableCors())
         {
-            bool allowAll = config.GetValue<bool>("CORS:AllowAll");
+            bool allowAll = configuration.GetValue<bool>("CORS:AllowAll");
 
             if (allowAll)
             {
                 services.AddCors(options =>
                 {
-                    options.AddPolicy(_corsPolicy, builder =>
+                    options.AddPolicy(_corsPolicyName, builder =>
                         builder.AllowAnyOrigin()
                              .AllowAnyMethod()
                              .AllowAnyHeader());
                 });
 
-                Console.WriteLine("----- Cors allow all");
+                Console.WriteLine("----- CORS allow all");
             }
             else
             {
                 var origins = new List<string>();
 
-                string? apiGateways = config.GetValue<string>("CORS:ApiGw");
+                string? apiGateways = configuration.GetValue<string>("CORS:ApiGw");
                 if (!string.IsNullOrEmpty(apiGateways))
                     origins.AddRange(apiGateways.Split(';', StringSplitOptions.RemoveEmptyEntries));
 
-                string? blazor = config.GetValue<string>("CORS:Blazor");
+                string? blazor = configuration.GetValue<string>("CORS:Blazor");
                 if (!string.IsNullOrEmpty(blazor))
                     origins.AddRange(blazor.Split(';', StringSplitOptions.RemoveEmptyEntries));
 
-                string? mvc = config.GetValue<string>("CORS:Mvc");
+                string? mvc = configuration.GetValue<string>("CORS:Mvc");
                 if (!string.IsNullOrEmpty(mvc))
                     origins.AddRange(mvc.Split(';', StringSplitOptions.RemoveEmptyEntries));
 
                 if (origins.Any())
                 {
                     services.AddCors(opt =>
-                        opt.AddPolicy(_corsPolicy, policy =>
+                        opt.AddPolicy(_corsPolicyName, policy =>
                             policy.AllowAnyHeader()
                                 .AllowAnyMethod()
                                 .AllowCredentials()
@@ -61,13 +62,11 @@ public static class CorsConfigure
         return services;
     }
 
-    public static IApplicationBuilder UseCorsPolicies(this IApplicationBuilder app, IConfiguration config)
+    public static IApplicationBuilder UseCorsPolicies(this IApplicationBuilder app, IConfiguration configuration)
     {
-        bool enable = config.GetValue<bool>("CorsSettings:Enable");
-
-        if (enable)
+        if (configuration.EnableCors())
         {
-            app.UseCors(_corsPolicy);
+            app.UseCors(_corsPolicyName);
         }
 
         return app;

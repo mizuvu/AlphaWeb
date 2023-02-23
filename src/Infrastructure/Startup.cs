@@ -5,6 +5,7 @@ using Infrastructure.Data;
 using Infrastructure.Identity;
 using Infrastructure.Identity.Data;
 using Infrastructure.Identity.Services;
+using Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
@@ -14,18 +15,20 @@ namespace Infrastructure;
 
 public static class Startup
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddAuth(config);
+        services.AddAuth(configuration);
 
-        services.AddData(config);
+        services.AddData(configuration);
+
+        services.AddMiddlewares(configuration);
 
         return services;
     }
 
-    public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder builder, IConfiguration config)
+    public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder builder, IConfiguration configuration)
     {
-        if (config.GetValue<bool>("AllowAnonymous"))
+        if (configuration.GetValue<bool>("AllowAnonymous"))
         {
             builder.MapControllers().AllowAnonymous();
         }
@@ -37,9 +40,9 @@ public static class Startup
         return builder;
     }
 
-    private static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration config, bool useJwtAuth = false)
+    private static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddIdentityData<AppIdentityDbContext>(config);
+        services.AddIdentityData<AppIdentityDbContext>(configuration);
 
         services.AddHttpContextAccessor();
 
@@ -48,7 +51,7 @@ public static class Startup
         services.AddIdentitySetup<AppIdentityDbContext>();
 
         // Must add identity before adding auth!
-        services.ConfigureJwtSettings(config);
+        services.ConfigureJwtSettings(configuration);
         // Inject outside because WebMVC don't use it
         //services.AddJwtAuth(config); // inject this for use jwt auth
 
@@ -56,7 +59,7 @@ public static class Startup
         services.AddIdentityServices();
 
 #pragma warning disable CA1416
-        services.AddActiveDirectoryServices(config);
+        services.AddActiveDirectoryServices(configuration);
 #pragma warning restore CA1416
 
         return services;

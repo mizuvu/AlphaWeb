@@ -6,14 +6,20 @@ namespace Infrastructure.Middlewares;
 
 public static class Startup
 {
-    public static IServiceCollection AddMiddleware(this IServiceCollection services, IConfiguration config)
+    private static bool EnableExceptionMiddleware(this IConfiguration configuration) =>
+        configuration.GetValue<bool>("Middlewares:ExceptionHandler");
+
+    private static bool EnableRequestLogMiddleware(this IConfiguration configuration) =>
+        configuration.GetValue<bool>("Middlewares:RequestLog");
+
+    public static IServiceCollection AddMiddlewares(this IServiceCollection services, IConfiguration configuration)
     {
-        if (config.GetValue<bool>("ExceptionMiddleware"))
+        if (configuration.EnableExceptionMiddleware())
         {
             services.AddScoped<ExceptionMiddleware>();
         }
 
-        if (config.GetValue<bool>("RequestLogMiddleware"))
+        if (configuration.EnableRequestLogMiddleware())
         {
             services.AddScoped<RequestLogMiddleware>();
         }
@@ -21,19 +27,14 @@ public static class Startup
         return services;
     }
 
-    public static IApplicationBuilder UseExceptionMiddleware(this IApplicationBuilder app, IConfiguration config)
+    public static IApplicationBuilder UseMiddlewares(this IApplicationBuilder app, IConfiguration configuration)
     {
-        if (config.GetValue<bool>("ExceptionMiddleware"))
+        if (configuration.EnableExceptionMiddleware())
         {
             app.UseMiddleware<ExceptionMiddleware>();
         }
 
-        return app;
-    }
-
-    public static IApplicationBuilder UseSaveRequestLogMiddleware(this IApplicationBuilder app, IConfiguration config)
-    {
-        if (config.GetValue<bool>("RequestLogMiddleware"))
+        if (configuration.EnableRequestLogMiddleware())
         {
             app.UseMiddleware<RequestLogMiddleware>();
         }
