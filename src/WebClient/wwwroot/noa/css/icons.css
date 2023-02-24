@@ -6,6 +6,7 @@
 /*black variables*/
 /*shadow variables*/
 /*text variables*/
+/*
 @import url("../iconfonts/font-awesome/css/font-awesome.min.css");
 @import url("../iconfonts/glyphicons/glyphicon.css");
 @import url("../iconfonts/ionicons/ionicons.css");
@@ -14,7 +15,12 @@
 @import url("../iconfonts/pe-icon-7-stroke/Pe-icon-7.css");
 @import url("../iconfonts/simple-line-icons/simple-line-icons.css");
 @import url("../iconfonts/themify/themify.css");
-@import url("../iconfonts/typicons/typicons.css"); /* import this for display on menu */
+@import url("../iconfonts/typicons/typicons.css");
 @import url("../iconfonts/weathericons/weathericons.css");
 @import url("../iconfonts/feather/feather.css");
 @import url("../iconfonts/remixicon/remixicon.css");
+*/
+
+@import url("../iconfonts/feather/feather.css");
+@import url("../iconfonts/simple-line-icons/simple-line-icons.css");
+@import url("../iconfonts/typicons/typicons.css"); /* import this for display on menu */

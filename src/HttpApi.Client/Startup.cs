@@ -22,7 +22,7 @@ public static class Startup
             .Where(t => iService.IsAssignableFrom(t) && t.Name != iService.Name) //select services implement from IService
             .Select(t => new
             {
-                InterfaceService = t.GetInterface($"I{t.Name}"),
+                InterfaceService = t.GetInterfaces().FirstOrDefault(x => x != iService), //.GetInterface($"I{t.Name}")
                 Service = t.Name,
                 Implementation = t
             })

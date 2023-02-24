@@ -20,8 +20,8 @@ public static class ServicesExtension
                //options.Cookie.HttpOnly = true;
                options.ExpireTimeSpan = TimeSpan.FromHours(12);
 
-               options.LoginPath = "/Account/Login";
-               options.AccessDeniedPath = "/Account/AccessDenied";
+               options.LoginPath = "/Authenticate/Login";
+               options.AccessDeniedPath = "/AccessDenied";
                options.SlidingExpiration = true;
            });
 
@@ -42,4 +42,10 @@ public static class ServicesExtension
                 .AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient(clientName));
         }
     }
+
+    public static IApplicationBuilder ConfigurePipelines(this IApplicationBuilder builder, IConfiguration config) =>
+    builder
+        .UseRouting()
+        .UseAuthentication()
+        .UseAuthorization();
 }

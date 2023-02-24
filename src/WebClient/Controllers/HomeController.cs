@@ -1,29 +1,20 @@
-﻿using Application.Contracts.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebClient.Models;
 
 namespace WebClient.Controllers;
 
-public class HomeController : Controller
+public class Home1Controller : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-    private readonly TokenClient _tokenClient;
+    private readonly ILogger<Home1Controller> _logger;
 
-    public HomeController(ILogger<HomeController> logger,
-        TokenClient tokenClient)
+    public Home1Controller(ILogger<Home1Controller> logger)
     {
         _logger = logger;
-        _tokenClient = tokenClient;
     }
 
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
-        var request = new TokenRequest("super", "123");
-        var token = await _tokenClient.GetTokenAsync(request);
-        ViewBag.Token = token.AccessToken;
-        ViewBag.RefreshToken = token.RefreshToken;
-
         return View();
     }
 

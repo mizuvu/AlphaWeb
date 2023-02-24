@@ -1,0 +1,129 @@
+﻿@page
+@model WebClient.Pages.Authenticate.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <partial name="_MetaHead" />
+
+    <!-- CSS Libs -->
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" id="style" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="~/lib/spinner/sk-spinner.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+
+    <!-- Theme -->
+    <link rel="stylesheet" href="~/noa/css/style.css" />
+    <link rel="stylesheet" href="~/noa/css/skin-modes.css" />
+    <link rel="stylesheet" href="~/noa/css/icons.css" />
+    <link rel="stylesheet" href="~/noa/css/theme.css" asp-append-version="true" />
+
+    <style>
+        .app-bg {
+            background-image: url("/images/auth-bg.png") !important;
+            background-position: center center;
+            background-size: cover;
+            background-repeat: repeat;
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="ltr app-bg">
+
+    <!-- PAGE -->
+    <div class="page">
+        <div>
+            <!-- CONTAINER OPEN -->
+            <div class="container-login100 animated fadeInDown">
+                <div class="wrap-login100 p-0">
+                    <div class="card p-0">
+                        <img src="~/images/Watsons/head.png" style="max-width: 100%;" />
+                    </div>
+                    <div class="card-body pt-0">
+                        <form onsubmit="OnSubmit()" method="POST" class="login100-form">
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                            <div class="wrap-input100">
+                                <input asp-for="Input.UserName" class="input100" placeholder="Username" required>
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </div>
+
+                            <div class="wrap-input100">
+                                <input asp-for="Input.Password" class="input100" type="password" placeholder="Password" required>
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fas fa-key"></i>
+                                </span>
+                            </div>
+
+                            <div class="wrap-input100">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <div class="custom-checkbox custom-control">
+                                            <input asp-for="Input.RememberMe" type="checkbox" class="custom-control-input">
+                                            <label asp-for="Input.RememberMe" class="custom-control-label"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container-login100-form-btn">
+                                <button type="submit" class="login100-form-btn btn-primary btn-submit">
+                                    Login
+                                </button>
+                                <div class="sk-spinner sk-spinner-double-bounce" style="display:none;">
+                                    <div class="sk-spinner sk-spinner-cube-grid">
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center pt-3">
+                                <p class="text-dark mb-0"><a href="#" onclick="alert('Please contact administrators.')" class="text-primary ms-1">Forgot Password?</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- CONTAINER CLOSED -->
+        </div>
+    </div>
+    <!-- End PAGE -->
+
+    <!-- JS Libs -->
+    <script src="~/lib/bootstrap/js/popper.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/noa/js/sticky.js"></script>
+    <script src="~/noa/js/themeColors.js"></script>
+    <script src="~/noa/js/site.js"></script>
+    <script src="~/noa/js/custom.js"></script>
+
+    <!-- Page JS Plugins -->
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        function OnSubmit() {
+            $(".btn-submit").css('display', 'none');
+            $(".sk-spinner").css('display', '');
+        }
+    </script>
+
+</body>
+</html>
