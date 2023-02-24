@@ -6,6 +6,7 @@ using Infrastructure.Identity;
 using Infrastructure.Identity.Data;
 using Infrastructure.Identity.Services;
 using Infrastructure.Middlewares;
+using Infrastructure.SignalR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,8 @@ public static class InfrastructureModule
 
         services.AddMiddlewares(configuration);
 
+        services.AddNotification(configuration);
+
         return services;
     }
 
@@ -36,6 +39,8 @@ public static class InfrastructureModule
         {
             builder.MapControllers().RequireAuthorization();
         }
+
+        builder.MapNotificationHub(configuration);
 
         return builder;
     }

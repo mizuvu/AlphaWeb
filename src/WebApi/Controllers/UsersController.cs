@@ -6,10 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
 
-[ApiController]
-[Route("api/v{version:apiVersion}/[controller]")]
 [Authorize(Policy = Permissions.Users.View)]
-public class UsersController : ControllerBase
+public class UsersController : VersionedApiControllerBase
 {
     private readonly IUserService _userService;
     private readonly ICurrentUser _currentUser;

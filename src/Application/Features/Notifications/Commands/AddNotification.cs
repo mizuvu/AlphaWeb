@@ -1,6 +1,6 @@
 ﻿namespace Application.Features.Notifications.Commands;
 
-public class AddNotification : ICommand
+public class AddNotification : ICommand<Result>
 {
     public string FromUserId { get; set; } = null!;
     public string? FromName { get; set; }
@@ -10,7 +10,7 @@ public class AddNotification : ICommand
     public string? Url { get; set; }
 }
 
-internal class AddNotificationHandler : ICommandHandler<AddNotification>
+internal class AddNotificationHandler : ICommandHandler<AddNotification, Result>
 {
     private readonly IApplicationDbContext _context;
 

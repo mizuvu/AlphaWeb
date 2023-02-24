@@ -11,18 +11,17 @@ public static class Startup
 {
     public static void ConfigureJwtSettings(this IServiceCollection services, IConfiguration configuration)
     {
-        var jwtConfiguration = configuration.GetSection("JwtAuth");
-        services.Configure<JwtConfiguration>(jwtConfiguration);
+        services.Configure<JwtConfiguration>(configuration.GetSection("JwtAuth"));
     }
 
     public static IServiceCollection AddJwtAuth(this IServiceCollection services, IConfiguration configuration)
     {
-        var jwtConfiguration = configuration.GetSection("JwtAuth").Get<JwtConfiguration>();
+        var jwtConfig = configuration.GetSection("JwtAuth").Get<JwtConfiguration>();
 
-        ArgumentNullException.ThrowIfNull(jwtConfiguration);
+        ArgumentNullException.ThrowIfNull(jwtConfig);
 
-        var secretKey = Encoding.ASCII.GetBytes(jwtConfiguration.SecretKey);
-        var issuer = jwtConfiguration.TokenIssuer;
+        var secretKey = Encoding.ASCII.GetBytes(jwtConfig.SecretKey);
+        var issuer = jwtConfig.TokenIssuer;
 
         services
             .AddAuthentication(authentication =>

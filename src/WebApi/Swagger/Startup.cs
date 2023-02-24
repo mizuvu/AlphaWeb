@@ -7,9 +7,12 @@ namespace WebApi.Swagger;
 
 public static class Startup
 {
-    public static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration config)
+    private static bool EnableSwagger(this IConfiguration configuration) =>
+        configuration.GetValue<bool>("Swagger:Enable");
+
+    public static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration)
     {
-        if (config.GetValue<bool>("Swagger:Enable"))
+        if (configuration.EnableSwagger())
         {
             services.AddVersionedApiExplorer(o =>
             {
@@ -26,9 +29,9 @@ public static class Startup
         return services;
     }
 
-    public static IApplicationBuilder UseSwagger(this IApplicationBuilder app, IConfiguration config)
+    public static IApplicationBuilder UseSwagger(this IApplicationBuilder app, IConfiguration configuration)
     {
-        if (config.GetValue<bool>("Swagger:Enable"))
+        if (configuration.EnableSwagger())
         {
             var provider = app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
 

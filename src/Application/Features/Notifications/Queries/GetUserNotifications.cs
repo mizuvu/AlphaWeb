@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Dtos.Notifications;
+﻿using Application.Contracts.Notifications;
 
 namespace Application.Features.Notifications.Queries;
 
@@ -16,9 +16,12 @@ internal class GetUserNotificationsHandler
         _context = context;
     }
 
-    public async Task<UserNotificationDto> Handle(GetUserNotifications request, CancellationToken cancellationToken)
+    public async Task<UserNotificationDto> Handle(GetUserNotifications request,
+        CancellationToken cancellationToken)
     {
-        var query = _context.Set<Notification>().Where(x => x.ToUserId == request.ToUser).AsNoTracking();
+        var query = _context.Set<Notification>()
+            .Where(x => x.ToUserId == request.ToUser)
+            .AsNoTracking();
 
         var unRead = await query.CountAsync(x => x.MarkAsRead == false, cancellationToken: cancellationToken);
 

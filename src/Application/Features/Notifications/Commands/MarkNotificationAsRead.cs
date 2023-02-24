@@ -1,9 +1,9 @@
 ﻿namespace Application.Features.Notifications.Commands;
 
-public record MarkNotificationAsRead(string Id) : INonQuery;
+public record MarkNotificationAsRead(string Id) : ICommand;
 
 internal class MarkNotificationAsReadHandler
-    : INonQueryHandler<MarkNotificationAsRead>
+    : ICommandHandler<MarkNotificationAsRead>
 {
     private readonly IApplicationDbContext _context;
 
@@ -12,9 +12,11 @@ internal class MarkNotificationAsReadHandler
         _context = context;
     }
 
-    public async Task Handle(MarkNotificationAsRead request, CancellationToken cancellationToken)
+    public async Task Handle(MarkNotificationAsRead request,
+        CancellationToken cancellationToken)
     {
-        var entry = await _context.Set<Notification>().SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
+        var entry = await _context.Set<Notification>()
+            .SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
             ?? throw new NotFoundException($"Notification entry {request.Id} not found");
 
         entry.MarkAsRead = true;

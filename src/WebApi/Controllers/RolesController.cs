@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
 
-[ApiController]
-[Route("api/v{version:apiVersion}/[controller]")]
 [Authorize(Policy = Permissions.Roles.View)]
-public class RolesController : ControllerBase
+public class RolesController : VersionedApiControllerBase
 {
     private readonly IRoleService _roleService;
 

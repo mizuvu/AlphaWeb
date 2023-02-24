@@ -22,17 +22,8 @@ public interface ICommandHandler<in TRequest, TResponse> : IRequestHandler<TRequ
     where TRequest : ICommand<TResponse>
 { }
 
-public interface ICommand : ICommand<Result> { }
+public interface ICommand : IRequest { }
 
-public interface ICommandHandler<in TRequest> : ICommandHandler<TRequest, Result>
-    where TRequest : ICommand<Result>
-{ }
-
-/// <summary>
-/// Execute a command with no return value
-/// </summary>
-public interface INonQuery : IRequest { }
-
-public interface INonQueryHandler<in TRequest> : IRequestHandler<TRequest>
-    where TRequest : INonQuery
+public interface ICommandHandler<in TRequest> : IRequestHandler<TRequest>
+    where TRequest : ICommand
 { }
